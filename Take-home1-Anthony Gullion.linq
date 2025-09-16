@@ -29,6 +29,9 @@ ClubActivities
 	
 //Question 2
 Programs
+	.Where(x => x.ProgramCourses
+					.Where(pc => pc.Required == true)
+					.Count() >= 22)
 	.Select(x => new
 	{
 		School = x.Schools.SchoolName,
@@ -40,7 +43,6 @@ Programs
 								.Where(x => x.Required != true)
 								.Count()
 	})
-	.Where(x => x.RequiredCourseCount >= 22)
 	.OrderBy(x => x.Program)
 	.Dump();
 	
