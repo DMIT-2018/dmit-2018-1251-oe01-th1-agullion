@@ -37,13 +37,24 @@ Programs
 		School = x.Schools.SchoolName,
 		Program = x.ProgramName,
 		RequiredCourseCount = x.ProgramCourses
-								.Where(x => x.Required == true)
+								.Where(pc => pc.Required == true)
 								.Count(),
 		OptionalCourseCount = x.ProgramCourses
-								.Where(x => x.Required != true)
+								.Where(pc => pc.Required != true)
 								.Count()
 	})
 	.OrderBy(x => x.Program)
 	.Dump();
 	
 //Question 3
+Students
+	.Where(x => x.StudentPayments.Count() == 0 && x.Countries.CountryName != "Canada")
+	.OrderBy(x => x.LastName)
+	.Select(x => new 
+	{
+		StudentNumber = x.StudentNumber,
+		CountryName = x.Countries.CountryName,
+		FullName = $"{x.FirstName} {x.LastName}",
+		ClubMembershipCount = x.ClubMembers.Count() == 0 ? "None" : x.ClubMembers.Count().ToString()
+	})
+	.Dump();
