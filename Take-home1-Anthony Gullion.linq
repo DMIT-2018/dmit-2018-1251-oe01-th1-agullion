@@ -62,13 +62,14 @@ Students
 //Question 4
 Employees
 	.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == null && x.ClassOfferings.Any())
+	.OrderByDescending(x => x.ClassOfferings.Count())
+	.ThenBy(x => x.LastName)
 	.Select(x => new 
 	{
 		ProgramName = x.Program.ProgramName,
 		FullName = x.FirstName + " " + x.LastName,
-		WorkLoad = (x.ClassOfferings.Count() < 8 && x.ClassOfferings.Any()) 
-		? "Low" : (x.ClassOfferings.Count() > 8 && x.ClassOfferings.Count() < 24) 
+		WorkLoad = (x.ClassOfferings.Count() <= 8 && x.ClassOfferings.Any()) 
+		? "Low" : (x.ClassOfferings.Count() > 8 && x.ClassOfferings.Count() <= 24) 
 		? "Med" : "High"
 	})
-	.OrderBy(x => x.WorkLoad)
 	.Dump();
