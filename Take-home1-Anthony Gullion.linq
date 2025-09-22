@@ -58,3 +58,17 @@ Students
 		ClubMembershipCount = x.ClubMembers.Count() == 0 ? "None" : x.ClubMembers.Count().ToString()
 	})
 	.Dump();
+	
+//Question 4
+Employees
+	.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == null && x.ClassOfferings.Any())
+	.Select(x => new 
+	{
+		ProgramName = x.Program.ProgramName,
+		FullName = x.FirstName + " " + x.LastName,
+		WorkLoad = (x.ClassOfferings.Count() < 8 && x.ClassOfferings.Any()) 
+		? "Low" : (x.ClassOfferings.Count() > 8 && x.ClassOfferings.Count() < 24) 
+		? "Med" : "High"
+	})
+	.OrderBy(x => x.WorkLoad)
+	.Dump();
