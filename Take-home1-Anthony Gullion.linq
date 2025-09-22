@@ -68,9 +68,8 @@ Employees
 	{
 		ProgramName = x.Program.ProgramName,
 		FullName = x.FirstName + " " + x.LastName,
-		WorkLoad = (x.ClassOfferings.Count() <= 8 && x.ClassOfferings.Any()) 
-		? "Low" : (x.ClassOfferings.Count() > 8 && x.ClassOfferings.Count() <= 24) 
-		? "Med" : "High"
+		WorkLoad = (x.ClassOfferings.Count() <= 8 && x.ClassOfferings.Any()) ? "Low" :
+						(x.ClassOfferings.Count() <= 24 && x.ClassOfferings.Any()) ? "Med" : "High"
 	})
 	.Dump();
 
@@ -79,10 +78,10 @@ Employees
 Clubs
 	.Select(x => new 
 	{
-		Supervisor = x.EmployeeID != null ? x.Employee.FirstName + " " + x.Employee.LastName : "Unknown",
+		Supervisor = x.EmployeeID == null ? "Unknown" : x.Employee.FirstName + " " + x.Employee.LastName,
 		Club = x.ClubName,
 		MemberCount = x.ClubMembers.Count(),
-		Activities = x.ClubActivities.Any() ? x.ClubActivities.Count().ToString() : "None Schedule"
+		Activities = x.ClubActivities.Count == 0 ? "None Schedule" : x.ClubActivities.Count().ToString()
 	})
 	.OrderByDescending(x => x.MemberCount)
 	.Dump();
