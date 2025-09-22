@@ -73,3 +73,16 @@ Employees
 		? "Med" : "High"
 	})
 	.Dump();
+
+
+//Question 5
+Clubs
+	.Select(x => new 
+	{
+		Supervisor = x.EmployeeID != null ? x.Employee.FirstName + " " + x.Employee.LastName : "Unknown",
+		Club = x.ClubName,
+		MemberCount = x.ClubMembers.Count(),
+		Activities = x.ClubActivities.Any() ? x.ClubActivities.Count().ToString() : "None Schedule"
+	})
+	.OrderByDescending(x => x.MemberCount)
+	.Dump();
