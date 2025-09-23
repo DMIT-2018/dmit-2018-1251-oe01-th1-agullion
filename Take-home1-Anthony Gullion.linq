@@ -38,7 +38,7 @@ Programs
 		RequiredCourseCount = x.ProgramCourses
 								.Count(pc => pc.Required),
 		OptionalCourseCount = x.ProgramCourses
-								.Count(pc => pc.Required)
+								.Count(pc => !pc.Required)
 	})
 	.OrderBy(x => x.Program)
 	.Dump();
