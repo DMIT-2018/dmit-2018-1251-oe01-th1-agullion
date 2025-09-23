@@ -33,7 +33,8 @@ Programs
 					.Count(pc => pc.Required) >= 22)
 	.Select(x => new
 	{
-		School = x.Schools.SchoolName,
+		School = x.SchoolCode == "SAMIT" ? "School of Advance Media and IT" :
+					x.SchoolCode ==	"SEET" ? "School of Electrical Engineering Technology" : "Unknown",
 		Program = x.ProgramName,
 		RequiredCourseCount = x.ProgramCourses
 								.Count(pc => pc.Required),
